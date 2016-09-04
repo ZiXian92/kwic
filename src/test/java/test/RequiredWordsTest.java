@@ -22,4 +22,16 @@ public class RequiredWordsTest {
         Assert.assertTrue(output.contains(inputs[2]));
         Assert.assertFalse(output.contains(inputs[3]));
     }
+
+    @Test
+    public void testNoRequiredWords(){
+        String[] reqWords = {};
+        String[] inputs = {"Best Friend Dogs are Man's", "Dogs are Man's Best Friend", "Friend Dogs are Man's Best", "Man's Best Friend Dogs are"};
+        RequiredWords reqWordsFilter = new RequiredWords(reqWords);
+        List<String> output = Arrays.asList(reqWordsFilter.filter(inputs));
+        Assert.assertTrue(output.contains(inputs[0]));
+        Assert.assertTrue(output.contains(inputs[1]));
+        Assert.assertTrue(output.contains(inputs[2]));
+        Assert.assertTrue(output.contains(inputs[3]));
+    }
 }
