@@ -35,7 +35,14 @@ public class Main {
             alphabetizer.addLines(shifter.getCircularShifts());
         }
 
-        String[] result = alphabetizer.getSortedLines();
+        System.out.println("Enter required words(terminate input with empty line)");
+        String reqWordInput;
+        RequiredWords reqWords = new RequiredWords();
+        while(!(reqWordInput = sc.nextLine()).isEmpty()){
+            reqWords.addWord(reqWordInput);
+        }
+
+        String[] result = reqWords.filter(alphabetizer.getSortedLines());
         StringBuilder builder = new StringBuilder();
         String separator = System.lineSeparator();
         for (String str : result) {
