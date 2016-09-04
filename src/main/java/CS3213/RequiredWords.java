@@ -2,20 +2,23 @@ package CS3213;
 
 import java.util.Arrays;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 /**
  * Created by Zi Xian on 04/09/2016.
+ *
+ * Defines the component to remove indexes without the required keywords from the input set.
  */
 public class RequiredWords {
-    private TreeSet<String> reqWords;
+    private TreeSet<String> reqWords;   // Guaranteed reasonably fast(logarithmic time) lookup, compared to hash set, which can perform badly with high collision
 
+    /**
+     * Creates a new instance of RequiredWords filter.
+     * @param reqWords A list(possibly empty) of required words in all indexes
+     */
     public RequiredWords(String[] reqWords){
         // This project doesn't seem to use JDK 1.8 so lambda expressions not supported :(
         this.reqWords = new TreeSet<String>();
-        for(String word: reqWords){
-            this.reqWords.add(word);
-        }
+        for(String word: reqWords) this.reqWords.add(word);
     }
 
     /**
