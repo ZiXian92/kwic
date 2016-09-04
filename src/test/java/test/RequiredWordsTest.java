@@ -34,4 +34,28 @@ public class RequiredWordsTest {
         Assert.assertTrue(output.contains(inputs[2]));
         Assert.assertTrue(output.contains(inputs[3]));
     }
+
+    @Test
+    public void testManualAdd(){
+        String[] inputs = {"A B C", "B C A", "C A B"};
+        RequiredWords requiredWordsFilter = new RequiredWords();
+
+        // Ensure that this is in no-filter mode
+        List<String> output = Arrays.asList(requiredWordsFilter.filter(inputs));
+        for(int i=0; i<inputs.length; i++){ Assert.assertTrue(output.contains(inputs[i])); }
+
+        // Test effect of adding a required word
+        requiredWordsFilter.addWord("A");
+        output = Arrays.asList(requiredWordsFilter.filter(inputs));
+        Assert.assertTrue(output.contains(inputs[0]));
+        Assert.assertFalse(output.contains(inputs[1]));
+        Assert.assertFalse(output.contains(inputs[2]));
+
+        // Test again for confirmation
+        requiredWordsFilter.addWord("C");
+        output = Arrays.asList(requiredWordsFilter.filter(inputs));
+        Assert.assertTrue(output.contains(inputs[0]));
+        Assert.assertFalse(output.contains(inputs[1]));
+        Assert.assertTrue(output.contains(inputs[2]));
+    }
 }
