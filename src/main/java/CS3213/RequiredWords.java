@@ -1,6 +1,8 @@
 package CS3213;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -13,16 +15,27 @@ public class RequiredWords {
 
     /**
      * Creates a new instance of RequiredWords filter.
-     * @param reqWords A list(possibly empty) of required words in all indexes
      */
-    public RequiredWords(String[] reqWords){
+    public RequiredWords(){
         // This project doesn't seem to use JDK 1.8 so lambda expressions not supported :(
         this.reqWords = new TreeSet<String>();
-        for(String word: reqWords){
-            word = word.trim();
-            if(!word.isEmpty())
-                this.reqWords.add(word.toLowerCase());
-        }
+    }
+
+    /**
+     * Creates a new instance of RequiredWords filter with a prepared set of required words.
+     * @param words
+     */
+    public RequiredWords(String[] words){
+        this();
+        for(String word: words){ this.addWord(word); }
+    }
+
+    /**
+     * Adds the given word to the list of required words.
+     * @param word
+     */
+    public void addWord(String word){
+        this.reqWords.add(word.toLowerCase());
     }
 
     /**
@@ -32,8 +45,12 @@ public class RequiredWords {
      * @return Array of strings that pass this filter requirements
      */
     public String[] filter(String[] lines){
-        TreeSet<String> filteredLines = new TreeSet<String>();
+        List<String> filteredLines = new ArrayList<String>();
+
+        // Check for corner case
+        // No required words = no filter
         if(reqWords.size()<1) return lines;
+
         for(String line: lines) {
             String[] words= line.split("\\s+", 2);
             if (reqWords.contains(words[0].toLowerCase()))
