@@ -35,7 +35,11 @@ public class Main {
             alphabetizer.addLines(shifter.getCircularShifts());
         }
 
-        String[] result = alphabetizer.getSortedLines();
+        System.out.println("\"required words\": ");
+        String[] requiredWords = sc.nextLine().split(",\\s+");
+        RequiredWords reqWords = new RequiredWords(requiredWords);
+
+        String[] result = reqWords.filter(alphabetizer.getSortedLines());
         StringBuilder builder = new StringBuilder();
         String separator = System.lineSeparator();
         for (String str : result) {
